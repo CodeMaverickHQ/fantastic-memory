@@ -156,7 +156,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\" : \"chair\",\n    \"price\" : 12.99,\n    \"store_id\":\"2dabdae09c034e0996139bc0b20483ea\"\n}",
+							"raw": "{\n    \"name\" : \"chair\",\n    \"price\" : 12.99,\n    \"store_id\":\"1\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -182,7 +182,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\" : \"chair\",\n    \"price\" : 13.99\n}",
+							"raw": "{\n    \"name\" : \"chair\",\n    \"price\" : 14.99\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -190,13 +190,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/item/<id>",
+							"raw": "{{url}}/item/1",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"item",
-								"<id>"
+								"1"
 							]
 						}
 					},
@@ -217,13 +217,74 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/item/<id>",
+							"raw": "{{url}}/item/2",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"item",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tags",
+			"item": [
+				{
+					"name": "/tags/<id> - Get tag",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/tags/<id>",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"tags",
 								"<id>"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/stores/<id>/tags - Get tags in store",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/stores/<id>/tags",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"stores",
+								"<id>",
+								"tags"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/stores/<id>/tags - Create tag in store",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/stores/<id>/tags",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"stores",
+								"<id>",
+								"tags"
 							]
 						}
 					},
