@@ -58,9 +58,23 @@ class LinkTagsToItem(MethodView):
             abort(500, message="some error occurred")
         return {"message":"Item removed from tag", "item":item, "tag":tag}        
     
-@blp.route("/tags/<string:tag_id>")
+@blp.route("/tag/<string:tag_id>")
 class Tag(MethodView):
     @blp.response(200, TagSchema)
     def get(self, tag_id):
         tag = TagModel.query.get_or_404(tag_id)
         return tag
+    
+    @blp.response(202, description="Deletes a tag if no item is tagged")
+    @blp.alt_response(404, description="tag not found")
+    @blp.alt_response(400, description="returned if the tag is assigned to one or more. Tag will not be deleted")
+    def delete(self, tag_id):
+        tag = TagModel.query.get_or_404(tag_id)
+        if not tag.items:
+            db.session.delete(tag)
+            db.session.commit()
+            return {"message":"tag deleted"}
+        abort(
+            400,
+            message="could not delete tag. make sure no items are associated with this tag"
+        )
