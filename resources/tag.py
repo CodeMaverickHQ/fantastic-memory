@@ -31,6 +31,20 @@ class TagsInStore(MethodView):
             )
         return tag
     
+@blp.route("/item/<string:item_id>/tag/<string:tag_id>")
+class LinkTagsToItem(MethodView):
+    def post(self, item_id, tag_id):
+        item = ItemModel.query.get_or_404(item_id)
+        tag = TagModel.query.get_or_404(tag_id)
+
+        item.tags.append(tag)
+        try:
+            db.session.add(item)
+            db.session.commit()
+        except SQLAlchemyError:
+            abort(500, message="some error occurred")
+        return tag
+    
 @blp.route("/tags/<string:tag_id>")
 class Tag(MethodView):
     @blp.response(200, TagSchema)
