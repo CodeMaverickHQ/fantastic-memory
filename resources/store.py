@@ -1,3 +1,4 @@
+
 from flask import request
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
@@ -13,7 +14,7 @@ blp = Blueprint("stores", __name__, description="operations on stores")
 class Store(MethodView):
     @blp.response(200, StoreSchema)
     def get(self, store_id):
-        store = StoreModel.get_or_404(store_id)
+        store = StoreModel.query.get_or_404(store_id)
         return store
 
     def delete(self, store_id):
