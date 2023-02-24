@@ -26,7 +26,7 @@ class UserRegister(MethodView):
     
 @blp.route("/user/<int:user_id>")
 class User(MethodView):
-
+    @blp.response(200, UserSchema)
     def get(self, user_id):
         user = UserModel.query.get_or_404(user_id)
         return user
