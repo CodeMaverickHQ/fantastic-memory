@@ -11,6 +11,7 @@ import models
 from resources.item import blp as ItemBlueprint
 from resources.store import blp as StoreBlueprint
 from resources.tag import blp as TagBlueprint
+from resources.user import blp as UserBlueprint
 
 def create_app(db_url=None):
     app = Flask(__name__)
@@ -38,5 +39,6 @@ def create_app(db_url=None):
     api.register_blueprint(ItemBlueprint)
     api.register_blueprint(StoreBlueprint)
     api.register_blueprint(TagBlueprint)
+    api.register_blueprint(UserBlueprint)
     
     return app

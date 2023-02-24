@@ -8,9 +8,9 @@ from schemas import UserSchema
 
 blp = Blueprint("Users", "users", description="Operations on users")
 
-@blp.rout('/register')
+@blp.route('/register')
 class UserRegister(MethodView):
-    
+
     @blp.arguments(UserSchema)
     def post(self, user_data):
         if UserModel.query.filter(UserModel.username == user_data["username"]).first():
