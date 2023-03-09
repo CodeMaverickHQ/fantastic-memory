@@ -24,6 +24,7 @@ class UserRegister(MethodView):
         db.session.commit()
 
         return {'message':"User created successfully"}, 201
+    
 @blp.route('/login')
 class UserLogin(MethodView):
     @blp.arguments(UserSchema)
