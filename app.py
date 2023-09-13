@@ -38,6 +38,18 @@ def create_app(db_url=None):
     def check_token_blocklist(jwt_header, jwt_payload):
         return jwt_payload["jti"] in BLOCKLIST
 
+    @jwt.revoked_token_loader
+    def revoked_token_callback(jwt_header, jwt_payload):
+        return (
+            jsonify(
+                {
+                    "message": "the Token has been revoked",
+                    "error":"token_revoked"
+                }
+            ),
+            401
+        )
+
     @jwt.additional_claims_loader
     def add_claims_to_jwt(identity):
         pass
