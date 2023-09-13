@@ -1,7 +1,7 @@
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
 from passlib.hash import pbkdf2_sha256
-from flask_jwt_extended import create_access_token, jwt_required,get_jwt
+from flask_jwt_extended import create_access_token, create_refresh_token, get_jwt_identity, jwt_required,get_jwt
 from blocklist import BLOCKLIST
 
 from db import db
@@ -34,8 +34,10 @@ class UserLogin(MethodView):
             UserModel.username == user_data['username']
         ).first()
         if user and pbkdf2_sha256.verify(user_data['password', user.password]):
-            access_token = create_access_token(identity=user.id)
-            return {"access_token": access_token}
+            access_token = create_access_token(identity=user.id, fresh=True)
+            refresh_token = create_refresh_token(identity=user.id)
+            return {"access_token": access_token, "refresh_token": refresh_token}
+        
         abort(401, message="inavalid creds")
     
 @blp.route('/logout')
