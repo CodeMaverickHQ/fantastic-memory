@@ -39,6 +39,14 @@ class UserLogin(MethodView):
             return {"access_token": access_token, "refresh_token": refresh_token}
         
         abort(401, message="inavalid creds")
+
+@blp.route("/refresh")
+class TokenRefresh(MethodView):
+    @jwt_required(refresh=True)
+    def post(self):
+        current_user = get_jwt_identity()
+        new_token = create_access_token(identity=current_user, fresh=False)
+        return {"access_token": new_token}
     
 @blp.route('/logout')
 class UserLogout(MethodView):
